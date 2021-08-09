@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
-import { View, Text, StyleSheet } from "react-native";
+import { Platform, Text, View, StyleSheet } from "react-native";
 
-import { Alert } from "react-native";
 import { Location, Permissions } from "expo";
 
 const TrackerScreen = ({ navigation }) => {
+  const [location, setLocation] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  let text = "Waiting..";
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
+
   //const [location, setLocation] = useState([]);
-  const state = {
+  /*const state = {
     location: "",
     errorMessage: "",
   };
@@ -28,14 +50,14 @@ const getLocation = async () => {
         location,
       });
     }
-  };
+  };*/
 
   return (
     <View style={styles.container}>
       <Text>{JSON.stringify(state.location)}</Text>
       <View style={styles.outerCircle}>
         <View style={styles.innerCircle}>
-          <TouchableOpacity activeOpacity={0.5} onPress={getLocation}>
+          <TouchableOpacity activeOpacity={0.5} onPress={text}>
             <Text style={styles.text}>Turn On Location</Text>
           </TouchableOpacity>
         </View>

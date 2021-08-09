@@ -1,41 +1,34 @@
-import { useEffect, useState } from "react";
-import { Alert } from "react-native";
-import { Location, Permissions } from "expo";
+import React, { useState, useEffect } from "react";
+import { Platform, Text, View, StyleSheet } from "react-native";
+import * as Location from "expo-location";
 
-const useTracking = () => {
-  state = {
-    location,
-    errorMessage: "",
-  };
+export default function usTracker() {
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
 
-  /*componentWillMount(){
-      this.getLocation();
-  }*/
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
 
-  const getLocation = async () => {
-    const { status } = await Permissions.askAsync(Permisions.Location);
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
 
-    if (status !== "granted") {
-        console.log('PERMISSION NOT GRANTED!');
-
-
-      this.setState({
-        errorMessage: "PERMISSION NOT GRANTED",
-      });
-    }
-
-    const userLocation = await Location.getCurrentPositionAsync();
-
-    this.setState({
-      location: userLocation,
-    });
-  };
+  let text = "Waiting..";
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
 
   return (
-      <View>
-          <Text>
-              {JSON.stringify(this.state.location)}
-          </Text>
-      </View>
-  )
-};
+    <View style={styles.container}>
+      <Text style={styles.paragraph}>{text}</Text>
+    </View>
+  );
+}
