@@ -55,13 +55,6 @@ const HomeScreen = ({ navigation }) => {
     });
   }, [navigation]);
 
-  const enterChat = (id, chatName) => {
-    navigation.navigate("Chat", {
-      id: id,
-      chatName: chatName,
-    });
-  };
-
   return (
     <View style={styles.container} /*Allow screen scroll for chat*/>
       <View style={styles.categoryContainer}>
@@ -70,18 +63,27 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.txt}>Screen recording</Text>
       </View>
+
+
       <View style={styles.categoryContainer}>
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity
+          activeOpacity={0.5}
+          onPress={() => navigation.navigate("Tracker")}
+        >
           <AntDesign name="find" size={72} color="black" />
         </TouchableOpacity>
         <Text style={styles.txt}>Tracker</Text>
       </View>
+
+
       <View style={styles.categoryContainer}>
         <TouchableOpacity activeOpacity={0.5}>
           <AntDesign name="camerao" size={72} color="black" />
         </TouchableOpacity>
         <Text style={styles.txt}>Camera</Text>
       </View>
+
+      
       <View style={styles.categoryContainer}>
         <TouchableOpacity activeOpacity={0.5}>
           <AntDesign name="setting" size={72} color="black" />
