@@ -6,7 +6,12 @@ import { Avatar } from "react-native-elements";
 import CustomListItem from "./components/CustomListItem";
 import { auth, db } from "../firebase";
 import { TouchableOpacity } from "react-native";
-import { AntDesign, SimpleLineIcons } from "@expo/vector-icons"; //Vector icons from expo library
+import {
+  AntDesign,
+  SimpleLineIcons,
+  FontAwesome,
+  Ionicons,
+} from "@expo/vector-icons"; //Vector icons from expo library
 
 //import AddChatScreen from "./AddChatScreen";
 //import ChatScreen from "./ChatScreen";
@@ -66,13 +71,13 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container} /*Allow screen scroll for chat*/>
       <View style={styles.categoryContainer}>
         <TouchableOpacity activeOpacity={0.5}>
-          <AntDesign name="play" size={72} color="black" />
+          <AntDesign name="videocamera" size={72} color="black" />
         </TouchableOpacity>
         <Text style={styles.txt}>Screen recording</Text>
       </View>
       <View style={styles.categoryContainer}>
         <TouchableOpacity activeOpacity={0.5}>
-          <AntDesign name="Compass" size={72} color="black" />
+          <AntDesign name="find" size={72} color="black" />
         </TouchableOpacity>
         <Text style={styles.txt}>Tracker</Text>
       </View>
@@ -112,9 +117,14 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 30,
     opacity: 0.3,
+    alignItems: "center",
+    justifyContent: "center",
   },
   txt: {
     alignSelf: "center",
     justifyContent: "center",
+    fontSize: 20,
+    fontWeight: "bold",
+    opacity: 1,
   },
 });
