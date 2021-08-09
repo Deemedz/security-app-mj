@@ -3,7 +3,6 @@ import { ScrollView } from "react-native";
 import { View, Text, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native"; //Protects content from notches or inscreen cameras.
 import { Avatar } from "react-native-elements";
-import CustomListItem from "./components/CustomListItem";
 import { auth, db } from "../firebase";
 import { TouchableOpacity } from "react-native";
 import {
@@ -12,9 +11,6 @@ import {
   FontAwesome,
   Ionicons,
 } from "@expo/vector-icons"; //Vector icons from expo library
-
-//import AddChatScreen from "./AddChatScreen";
-//import ChatScreen from "./ChatScreen";
 
 const HomeScreen = ({ navigation }) => {
   const [chats, setChats] = useState([]);
@@ -43,7 +39,6 @@ const HomeScreen = ({ navigation }) => {
   //Styles the header of the chat
   useLayoutEffect(() => {
     navigation.setOptions({
-      //title: "Signal",
       headerStyle: { backgroundColor: "#F68519" },
       headerTitle: () => (
         <View style={{ marginLeft: 20 }}>
@@ -52,7 +47,7 @@ const HomeScreen = ({ navigation }) => {
               rounded
               source={{
                 uri: "https://bcassetcdn.com/social/qvhlj9kgd3/preview.png",
-              }} /*Displays profile photo of the signed in user*/
+              }} /*Displays company logo at the top*/
             />
           </TouchableOpacity>
         </View>
